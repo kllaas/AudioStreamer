@@ -1,0 +1,63 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0-beta7'
+
+        // Realm Database (https://realm.io/docs/java/latest/)
+        classpath "io.realm:realm-gradle-plugin:3.4.0"
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://jitpack.io' }
+        jcenter()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+
+    // Support Libraries
+    supportLibraryVersion = '26.1.0'
+
+    // Dependency Injection (Dagger)
+    dagger2Version = '2.9'
+
+    // Butterknife
+    butterKnifeVersion = '8.8.1'
+
+    // Validation (Saripaar)
+    saripaarVersion = 'android-saripaar-2.0.3'
+
+    // Retrofit
+    retrofitVersion = '2.3.0'
+
+    // Database (Realm)
+    realmVersion = '3.3.1'
+
+    // RxJava
+    rxJava = '2.1.0'
+    rxAndroid = '2.0.1'
+
+    // JSON parsing (Gson)
+    gsonVersion = '1.7.2'
+    retrofitGsonVersion = '2.3.0'
+
+    // Testing
+    junitVersion = '4.12'
+
+    // Glide
+    glideVersion = '3.7.0'
+}
