@@ -16,10 +16,7 @@ public class FragmentModule {
 
     @Provides
     List<Station> provideNotes() {
-        List<Station> news = new ArrayList<>();
-        news.add(new Station());
-        news.get(0).setName("title");
-        return news;
+        return new ArrayList<>();
     }
 
     @Provides

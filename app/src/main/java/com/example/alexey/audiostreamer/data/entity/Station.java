@@ -1,5 +1,7 @@
 package com.example.alexey.audiostreamer.data.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
@@ -14,6 +16,9 @@ public class Station extends RealmObject {
     private RealmList<Category> categories;
 
     private RealmList<Stream> streams;
+
+    @SerializedName("total_listeners")
+    private Integer listeners;
 
     public Station() {
     }
@@ -38,6 +43,14 @@ public class Station extends RealmObject {
         return image;
     }
 
+    public Integer getListeners() {
+        return listeners;
+    }
+
+    public void setListeners(Integer listeners) {
+        this.listeners = listeners;
+    }
+
     public void setImage(Image image) {
         this.image = image;
     }
@@ -56,6 +69,22 @@ public class Station extends RealmObject {
 
     public void setStreams(RealmList<Stream> streams) {
         this.streams = streams;
+    }
+
+    public String getCategoriesString() {
+        if (categories == null) return "";
+
+        StringBuilder res = new StringBuilder();
+
+        for (Category category : categories) {
+            res.append(category.getTitle());
+            res.append(", ");
+        }
+
+        res.deleteCharAt(res.length() - 2);
+        res.setCharAt(res.length() - 1, '.');
+
+        return res.toString();
     }
 
     @Override
