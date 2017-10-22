@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.alexey.audiostreamer.R;
-import com.example.alexey.audiostreamer.data.Track;
 import com.example.alexey.audiostreamer.ui.list.ListFragment;
 
 import java.lang.ref.SoftReference;
@@ -77,7 +76,7 @@ public class NavigationManager {
         }
     }
 
-/*    public void openDetailsFragment(Track track) {
+/*    public void openDetailsFragment(TrackResponse track) {
         Fragment fragment = DetailFragment.newInstance(track);
         open(fragment);
     }
@@ -89,7 +88,7 @@ public class NavigationManager {
     }
 
     public void navigateBack(AppCompatActivity activity) {
-        if (fragmentManager.getBackStackEntryCount() == 0) {
+        if (fragmentManager.getBackStackEntryCount() == 1) {
 
             activity.finish();
             return;

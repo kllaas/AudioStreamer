@@ -1,7 +1,6 @@
 package com.example.alexey.audiostreamer.di.modules;
 
-import com.example.alexey.audiostreamer.data.Track;
-import com.example.alexey.audiostreamer.di.FragmentScope;
+import com.example.alexey.audiostreamer.data.entity.Station;
 import com.example.alexey.audiostreamer.ui.list.ListContract;
 import com.example.alexey.audiostreamer.ui.list.ListPresenter;
 
@@ -10,20 +9,16 @@ import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
-
-/**
- * Created by alexey
- */
+import io.reactivex.disposables.CompositeDisposable;
 
 @Module
-@FragmentScope
 public class FragmentModule {
 
     @Provides
-    List<Track> provideNotes() {
-        List<Track> news = new ArrayList<>();
-        news.add(new Track());
-        news.get(0).setTitle("title");
+    List<Station> provideNotes() {
+        List<Station> news = new ArrayList<>();
+        news.add(new Station());
+        news.get(0).setName("title");
         return news;
     }
 
@@ -31,6 +26,11 @@ public class FragmentModule {
     ListContract.Presenter<ListContract.View> provideListPresenter(
             ListPresenter<ListContract.View> presenter) {
         return presenter;
+    }
+
+    @Provides
+    CompositeDisposable provideCompositeDisposable() {
+        return new CompositeDisposable();
     }
 
 }

@@ -7,8 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.alexey.audiostreamer.R;
-import com.example.alexey.audiostreamer.data.Track;
+import com.example.alexey.audiostreamer.data.entity.Station;
 
 import java.util.List;
 
@@ -23,29 +24,34 @@ import butterknife.ButterKnife;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private List<Track> tracks;
+    private List<Station> stations;
 
     private OnClick onClick;
 
     @Inject
-    ListAdapter(List<Track> tracks) {
-        this.tracks = tracks;
+    ListAdapter(List<Station> stations) {
+        this.stations = stations;
+    }
+
+    void setItems(List<Station> stations) {
+        this.stations = stations;
+        notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_track, parent, false));
+                .inflate(R.layout.item_station, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.onBind(tracks.get(position));
+        holder.onBind(stations.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return tracks.size();
+        return stations.size();
     }
 
     void setOnItemClick(OnClick onItemClick) {
@@ -54,15 +60,33 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.image)
+        ImageView image;
+
+        @BindView(R.id.name)
+        TextView name;
+
+        @BindView(R.id.description)
+        TextView description;
+
         ViewHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
         }
 
-        void onBind(Track news) {
-            // fill views with content
+        void onBind(Station station) {
+            name.setText(station.getName());
+            description.setText(station.getName());
+
+            if (station.getImage() != null && station.getImage().getUrlToImage() != null)
+                Glide.with(itemView.getContext())
+                        .load(station.getImage().getUrlToImage())
+                        .asBitmap()
+                        .fitCenter()
+                        .into(image);
         }
+
     }
 
 }

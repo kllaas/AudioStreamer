@@ -1,0 +1,15 @@
+allprojects {
+    repositories {
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://jitpack.io' }
+        jcenter()
+    }
+}
+
+ext {
+    androidSupportVersion = "26.0.1"
+
+    appDependencies = [
+        androidSupport : "com.android.support:design:${androidSupportVersion}"
+    ]
+}

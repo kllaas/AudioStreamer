@@ -4,12 +4,13 @@ import android.app.Application;
 import android.content.Context;
 
 import com.example.alexey.audiostreamer.BuildConfig;
-import com.example.alexey.audiostreamer.data.DataSource;
 import com.example.alexey.audiostreamer.data.Repository;
+import com.example.alexey.audiostreamer.data.entity.Station;
 import com.example.alexey.audiostreamer.data.local.LocalRepository;
 import com.example.alexey.audiostreamer.data.remote.RemoteRepository;
-import com.example.alexey.audiostreamer.ui.main.MainMvpContract;
-import com.example.alexey.audiostreamer.ui.main.MainPresenter;
+import com.example.alexey.audiostreamer.data.remote.mapping.StationsDeserializer;
+import com.example.alexey.audiostreamer.utils.rx.AppSchedulerProvider;
+import com.example.alexey.audiostreamer.utils.rx.SchedulerProvider;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -19,12 +20,10 @@ import dagger.Module;
 import dagger.Provides;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-
-/**
- * Initialize singletons.
- */
+import retrofit2.Retrofit;
 
 @Module
+@Singleton
 public class AppModule {
 
     private final Application application;
@@ -53,38 +52,40 @@ public class AppModule {
 
     @Provides
     @Singleton
+    Repository provideRepository(LocalRepository localRepository, RemoteRepository remoteRepository) {
+        return new Repository(localRepository, remoteRepository);
+    }
+
+    @Provides
+    @Singleton
+    String provideApiKey() {
+        return BuildConfig.API_KEY;
+    }
+
+    @Provides
+    @Singleton
+    SchedulerProvider provideAppSchedulerProvider() {
+        return new AppSchedulerProvider();
+    }
+
+    @Provides
+    @Singleton
     Gson provideGson() {
-        return new GsonBuilder().create();
+        return new GsonBuilder()
+                .registerTypeAdapter(Station.class, new StationsDeserializer())
+                .create();
+    }
+
+    @Provides
+    @Singleton
+    Retrofit provideRetrofit() {
+        return new Retrofit.Builder().build();
     }
 
     @Provides
     @Singleton
     Realm provideRealm() {
         return Realm.getDefaultInstance();
-    }
-
-    @Provides
-    @Singleton
-    DataSource provideDataSource(LocalRepository localRepository, RemoteRepository remoteRepository) {
-        return new Repository(localRepository, remoteRepository);
-    }
-
-    @Provides
-    @Singleton
-    LocalRepository provideLocalRepository(Realm realm) {
-        return new LocalRepository(realm);
-    }
-
-    @Provides
-    @Singleton
-    RemoteRepository provideRemoteRepository() {
-        return new RemoteRepository();
-    }
-
-    @Provides
-    MainMvpContract.Presenter<MainMvpContract.View> provideMainPresenter(
-            MainPresenter<MainMvpContract.View> presenter) {
-        return presenter;
     }
 
 }

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 
+import com.example.alexey.audiostreamer.App;
 import com.example.alexey.audiostreamer.di.components.DaggerFragmentComponent;
 import com.example.alexey.audiostreamer.di.components.FragmentComponent;
 import com.example.alexey.audiostreamer.di.modules.FragmentModule;
@@ -43,6 +44,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
         component = DaggerFragmentComponent.builder()
                 .fragmentModule(new FragmentModule())
+                .applicationComponent(App.appComponent)
                 .build();
     }
 

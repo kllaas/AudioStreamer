@@ -1,7 +1,7 @@
 package com.example.alexey.audiostreamer.ui.main;
 
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -55,4 +55,5 @@ public class MainActivity extends BaseActivity implements View {
     public FragmentManager getFragmentManger() {
         return getSupportFragmentManager();
     }
+
 }

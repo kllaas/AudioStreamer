@@ -1,5 +1,5 @@
 package com.example.alexey.audiostreamer.ui.base;
 
-public interface BaseView {
+public interface BaseView<V extends BasePresenter> {
 
 }

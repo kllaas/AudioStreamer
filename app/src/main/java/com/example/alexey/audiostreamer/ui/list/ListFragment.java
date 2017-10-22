@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.alexey.audiostreamer.R;
-import com.example.alexey.audiostreamer.data.Track;
+import com.example.alexey.audiostreamer.data.entity.Station;
 import com.example.alexey.audiostreamer.di.components.FragmentComponent;
 import com.example.alexey.audiostreamer.ui.base.BaseFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,8 +29,8 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
     OnClick onClick = new OnClick() {
         @Override
-        public void onClick(Track track) {
-            presenter.onItemClick(track);
+        public void onClick(Station station) {
+            presenter.onItemClick(station);
         }
     };
 
@@ -84,5 +86,20 @@ public class ListFragment extends BaseFragment implements ListContract.View {
     @Override
     protected boolean showsBackButton() {
         return false;
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void updateList(List<Station> stations) {
+        listAdapter.setItems(stations);
     }
 }

@@ -7,12 +7,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by alexey
- */
-
 @Module
-@Singleton
 public class NavigationModule {
 
     @Provides
