@@ -8,8 +8,7 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/details_image_station"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background" />
+        android:scaleType="centerCrop" />
 
     <com.ohoussein.playpause.PlayPauseView
         android:id="@+id/play_btn"
@@ -33,8 +32,7 @@
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="asdfsafsadfasfsdaf" />
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 

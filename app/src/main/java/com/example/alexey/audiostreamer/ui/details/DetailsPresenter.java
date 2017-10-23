@@ -28,7 +28,14 @@ public class DetailsPresenter<V extends DetailsContract.View>
 
     @Override
     protected void onViewPrepared() {
+        if (station == null) return;
 
+        if (station.getImage() != null && station.getImage().getUrlToImage() != null) {
+            getView().setImage(station.getImage().getUrlToImage());
+        }
+
+        if (station.getName() != null)
+            getView().setName(station.getName());
     }
 
     @Override
