@@ -89,6 +89,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                         .asBitmap()
                         .fitCenter()
                         .into(image);
+
+            itemView.setOnClickListener(v -> onClick.onClick(station));
         }
 
     }

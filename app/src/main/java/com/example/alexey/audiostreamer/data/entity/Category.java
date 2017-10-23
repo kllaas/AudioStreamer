@@ -1,8 +1,10 @@
 package com.example.alexey.audiostreamer.data.entity;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
-public class Category extends RealmObject {
+public class Category extends RealmObject implements Serializable {
 
     private int id;
 

@@ -1,6 +1,8 @@
 package com.example.alexey.audiostreamer.di.modules;
 
 import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.ui.details.DetailsContract;
+import com.example.alexey.audiostreamer.ui.details.DetailsPresenter;
 import com.example.alexey.audiostreamer.ui.list.ListContract;
 import com.example.alexey.audiostreamer.ui.list.ListPresenter;
 
@@ -15,6 +17,11 @@ import io.reactivex.disposables.CompositeDisposable;
 public class FragmentModule {
 
     @Provides
+    CompositeDisposable provideCompositeDisposable() {
+        return new CompositeDisposable();
+    }
+
+    @Provides
     List<Station> provideNotes() {
         return new ArrayList<>();
     }
@@ -26,8 +33,9 @@ public class FragmentModule {
     }
 
     @Provides
-    CompositeDisposable provideCompositeDisposable() {
-        return new CompositeDisposable();
+    DetailsContract.Presenter<DetailsContract.View> provideDetailsPresenter(
+            DetailsPresenter<DetailsContract.View> presenter) {
+        return presenter;
     }
 
 }

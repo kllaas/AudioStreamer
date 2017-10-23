@@ -1,6 +1,7 @@
 package com.example.alexey.audiostreamer.ui.list;
 
 
+import com.example.alexey.audiostreamer.App;
 import com.example.alexey.audiostreamer.data.Repository;
 import com.example.alexey.audiostreamer.data.entity.Station;
 import com.example.alexey.audiostreamer.ui.NavigationManager;
@@ -28,7 +29,7 @@ public class ListPresenter<V extends ListContract.View>
 
     @Override
     public void onItemClick(Station station) {
-//        App.appComponent.getNavigationManager().openDetailsFragment(station);
+        App.appComponent.getNavigationManager().openDetailsFragment(station);
     }
 
     @Override

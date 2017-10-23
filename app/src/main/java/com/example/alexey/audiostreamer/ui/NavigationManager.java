@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.alexey.audiostreamer.R;
+import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.ui.details.DetailsFragment;
 import com.example.alexey.audiostreamer.ui.list.ListFragment;
 
 import java.lang.ref.SoftReference;
@@ -21,15 +23,15 @@ public class NavigationManager {
     public interface NavigationListener {
 
         void onBackStackChanged();
-    }
 
+    }
     private FragmentManager fragmentManager;
 
     private NavigationListener navigationListener;
+
     // Stack that contains fullscreen Fragments only, unlike
     // fragmentManager.getFragments() that returns all added fragments.
     private Stack<SoftReference<Fragment>> fullScreenFragmentsStack;
-
     public void init(FragmentManager fragmentManager, NavigationListener navigationListener) {
         this.fragmentManager = fragmentManager;
         this.navigationListener = navigationListener;
@@ -52,7 +54,7 @@ public class NavigationManager {
         if (!fullScreenFragmentsStack.isEmpty() && fullScreenFragmentsStack.peek() != null)
             transaction.remove(fullScreenFragmentsStack.peek().get());
 
-        transaction.add(R.id.fragments_container, fragment)
+        transaction.replace(R.id.fragments_container, fragment)
                 .addToBackStack(fragment.toString())
                 .commit();
 
@@ -76,11 +78,10 @@ public class NavigationManager {
         }
     }
 
-/*    public void openDetailsFragment(TrackResponse track) {
-        Fragment fragment = DetailFragment.newInstance(track);
+    public void openDetailsFragment(Station station) {
+        Fragment fragment = DetailsFragment.newInstance(station);
         open(fragment);
     }
-    */
 
     public void openListFragment() {
         Fragment fragment = ListFragment.newInstance();

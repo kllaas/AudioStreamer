@@ -2,6 +2,7 @@ package com.example.alexey.audiostreamer.di.components;
 
 import com.example.alexey.audiostreamer.di.PerFragment;
 import com.example.alexey.audiostreamer.di.modules.FragmentModule;
+import com.example.alexey.audiostreamer.ui.details.DetailsFragment;
 import com.example.alexey.audiostreamer.ui.list.ListFragment;
 
 import dagger.Component;
@@ -11,5 +12,7 @@ import dagger.Component;
 public interface FragmentComponent {
 
     void inject(ListFragment fragment);
+
+    void inject(DetailsFragment fragment);
 
 }

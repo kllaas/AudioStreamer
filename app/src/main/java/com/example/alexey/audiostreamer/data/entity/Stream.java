@@ -2,13 +2,15 @@ package com.example.alexey.audiostreamer.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
 /**
  * Created by alexey
  */
 
-public class Stream extends RealmObject {
+public class Stream extends RealmObject implements Serializable {
 
     @SerializedName("stream")
     private String url;

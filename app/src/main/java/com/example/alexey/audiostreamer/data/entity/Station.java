@@ -2,10 +2,12 @@ package com.example.alexey.audiostreamer.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class Station extends RealmObject {
+public class Station extends RealmObject implements Serializable {
 
     private Integer id;
 

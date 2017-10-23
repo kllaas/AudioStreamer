@@ -83,6 +83,9 @@ dependencies {
     // Glide
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
 
+    // Cool play/pause button
+    compile 'com.github.ohoussein.playpauseview:playpauseview:1.0.1'
+
     def app = rootProject.ext.appDependencies
 
     compile app.androidSupport
