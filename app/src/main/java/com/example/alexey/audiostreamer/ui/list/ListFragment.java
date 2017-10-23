@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.alexey.audiostreamer.R;
 import com.example.alexey.audiostreamer.data.entity.Station;
@@ -37,13 +38,16 @@ public class ListFragment extends BaseFragment implements ListContract.View {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    RecyclerView.LayoutManager layoutManager;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     @Inject
     ListContract.Presenter<ListContract.View> presenter;
 
     @Inject
     ListAdapter listAdapter;
+
+    RecyclerView.LayoutManager layoutManager;
 
     public static ListFragment newInstance() {
         Bundle args = new Bundle();
@@ -90,12 +94,12 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
     @Override
     public void showLoading() {
-
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

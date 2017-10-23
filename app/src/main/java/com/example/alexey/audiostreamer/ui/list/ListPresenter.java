@@ -46,6 +46,8 @@ public class ListPresenter<V extends ListContract.View>
 
     private void onLoadingFailed(String message) {
         System.out.println(message);
+
+        getView().hideLoading();
     }
 
     private void onStationsLoaded(List<Station> stations) {
