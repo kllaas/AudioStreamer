@@ -54,20 +54,16 @@ public class DetailsPresenter<V extends DetailsContract.View>
         int streamsAmount = station.getStreams().size() - 1;
 
         try {
-            mediaPlayer.setOnPreparedListener(mp ->
-            {
-                getView().unBlockPlayButton();
-                System.out.println("mediaPlayer" + " ready");
+            mediaPlayer.setOnPreparedListener(mp -> {
+                getView().togglePlayButton(true);
+                getView().toggleProgressBar(false);
             });
 
-            mediaPlayer.setOnCompletionListener(mp -> System.out.println("mediaPlayer" + " onCompletion"));
-
-            System.out.println("url to play: " +station.getStreams().get(streamsAmount).getUrl());
             mediaPlayer.reset();
             mediaPlayer.setDataSource(station.getStreams().get(streamsAmount).getUrl());
             mediaPlayer.prepareAsync();
         } catch (IOException e) {
-            System.out.println("mediaPlayer" + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -83,5 +79,14 @@ public class DetailsPresenter<V extends DetailsContract.View>
         } else {
             mediaPlayer.start();
         }
+    }
+
+    @Override
+    public void destroyMediaPlayer() {
+        if (mediaPlayer == null) return;
+
+        mediaPlayer.stop();
+        mediaPlayer.release();
+        mediaPlayer = null;
     }
 }

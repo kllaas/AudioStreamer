@@ -2,7 +2,6 @@ package com.example.alexey.audiostreamer.di.modules;
 
 import android.app.Application;
 import android.content.Context;
-import android.media.MediaPlayer;
 
 import com.example.alexey.audiostreamer.BuildConfig;
 import com.example.alexey.audiostreamer.data.Repository;
@@ -87,12 +86,6 @@ public class AppModule {
     @Singleton
     Realm provideRealm() {
         return Realm.getDefaultInstance();
-    }
-
-    @Provides
-    @Singleton
-    MediaPlayer provideMediaPlayer() {
-        return new MediaPlayer();
     }
 
 }

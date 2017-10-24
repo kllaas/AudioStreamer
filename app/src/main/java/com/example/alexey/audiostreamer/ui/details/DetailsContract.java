@@ -8,11 +8,13 @@ public interface DetailsContract {
 
     interface View extends BaseView {
 
+        void togglePlayButton(boolean enabled);
+
         void setName(String text);
 
         void setImage(String imageUrl);
 
-        void unBlockPlayButton();
+        void toggleProgressBar(boolean visibility);
     }
 
     interface Presenter<V extends View> extends BasePresenter<V> {
@@ -20,6 +22,8 @@ public interface DetailsContract {
         void setStation(Station station);
 
         void togglePlaying();
+
+        void destroyMediaPlayer();
     }
 
 }

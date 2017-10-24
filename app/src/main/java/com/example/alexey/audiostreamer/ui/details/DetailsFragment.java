@@ -1,11 +1,14 @@
 package com.example.alexey.audiostreamer.ui.details;
 
+import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +23,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.graphics.PorterDuff.Mode.MULTIPLY;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 
 /**
@@ -38,6 +45,9 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
 
     @BindView(R.id.play_btn)
     PlayPauseView playButton;
+
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     @Inject
     DetailsContract.Presenter<DetailsContract.View> presenter;
@@ -63,13 +73,43 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
         setUnBinder(ButterKnife.bind(this, view));
 
         Station station = (Station) getArguments().getSerializable(STATION_BUNDLE_KEY);
-
         presenter.setStation(station);
-        presenter.takeView(this);
 
-        playButton.setEnabled(false);
+        setUpViews();
 
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        presenter.destroyMediaPlayer();
+    }
+
+    private void setUpViews() {
+        presenter.takeView(this);
+
+        togglePlayButton(false);
+
+        int color = getContext().getResources().getColor(R.color.colorPrimary);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ColorStateList stateList = ColorStateList.valueOf(color);
+            progressBar.setIndeterminateTintList(stateList);
+        } else {
+            progressBar.getIndeterminateDrawable()
+                    .setColorFilter(color, MULTIPLY);
+        }
+    }
+
+    @Override
+    public void togglePlayButton(boolean enabled) {
+        playButton.setEnabled(enabled);
+
+        int enabledColor = getContext().getResources().getColor(R.color.colorPrimary);
+        int disabledColor = getContext().getResources().getColor(R.color.disableButtonColor);
+
+        playButton.setColor(enabled ? enabledColor : disabledColor);
     }
 
     @OnClick(R.id.play_btn)
@@ -94,8 +134,8 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
     }
 
     @Override
-    public void unBlockPlayButton() {
-        playButton.setEnabled(true);
+    public void toggleProgressBar(boolean visibility) {
+        progressBar.setVisibility(visibility ? VISIBLE : GONE);
     }
 
     @Override
