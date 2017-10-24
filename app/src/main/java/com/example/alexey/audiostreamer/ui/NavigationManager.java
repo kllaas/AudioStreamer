@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.example.alexey.audiostreamer.R;
 import com.example.alexey.audiostreamer.data.entity.Station;
@@ -52,14 +51,13 @@ public class NavigationManager {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (!fullScreenFragmentsStack.isEmpty() && fullScreenFragmentsStack.peek() != null)
-            transaction.remove(fullScreenFragmentsStack.peek().get());
+            transaction.detach(fullScreenFragmentsStack.peek().get());
 
-        transaction.replace(R.id.fragments_container, fragment)
-                .addToBackStack(fragment.toString())
+        transaction.add(R.id.fragments_container, fragment)
+                .addToBackStack(null)
                 .commit();
 
         fullScreenFragmentsStack.push(new SoftReference<>(fragment));
-        Log.d("fullScreenStack", fullScreenFragmentsStack.size() + "");
     }
 
     private void openAsRoot(Fragment fragment) {

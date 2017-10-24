@@ -11,15 +11,15 @@ public interface DetailsContract {
         void setName(String text);
 
         void setImage(String imageUrl);
+
+        void unBlockPlayButton();
     }
 
     interface Presenter<V extends View> extends BasePresenter<V> {
 
-        void stopPlaying();
-
-        void startPlaying();
-
         void setStation(Station station);
+
+        void togglePlaying();
     }
 
 }

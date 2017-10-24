@@ -37,7 +37,7 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
     TextView name;
 
     @BindView(R.id.play_btn)
-    PlayPauseView palyButton;
+    PlayPauseView playButton;
 
     @Inject
     DetailsContract.Presenter<DetailsContract.View> presenter;
@@ -67,16 +67,16 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
         presenter.setStation(station);
         presenter.takeView(this);
 
+        playButton.setEnabled(false);
+
         return view;
     }
 
     @OnClick(R.id.play_btn)
     public void onClick() {
-        if (palyButton.isPlay()) {
-            presenter.stopPlaying();
-        } else {
-            presenter.startPlaying();
-        }
+        presenter.togglePlaying();
+
+        playButton.change(!playButton.isPlay());
     }
 
     @Override
@@ -91,6 +91,11 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
                 .asBitmap()
                 .fitCenter()
                 .into(image);
+    }
+
+    @Override
+    public void unBlockPlayButton() {
+        playButton.setEnabled(true);
     }
 
     @Override

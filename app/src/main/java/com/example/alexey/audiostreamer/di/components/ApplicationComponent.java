@@ -2,6 +2,7 @@ package com.example.alexey.audiostreamer.di.components;
 
 import android.app.Application;
 import android.content.Context;
+import android.media.MediaPlayer;
 
 import com.example.alexey.audiostreamer.App;
 import com.example.alexey.audiostreamer.data.Repository;
@@ -24,7 +25,7 @@ public interface ApplicationComponent {
 
     void inject(MainActivity activity);
 
-    Context getAppContext(Context appContext);
+    Context getAppContext();
 
     Application application();
 
@@ -33,4 +34,6 @@ public interface ApplicationComponent {
     SchedulerProvider getSchedulerProvider();
 
     NavigationManager getNavigationManager();
+
+    MediaPlayer getMediaPlayer();
 }

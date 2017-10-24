@@ -22,14 +22,14 @@ public class FragmentModule {
     }
 
     @Provides
-    List<Station> provideNotes() {
-        return new ArrayList<>();
-    }
-
-    @Provides
     ListContract.Presenter<ListContract.View> provideListPresenter(
             ListPresenter<ListContract.View> presenter) {
         return presenter;
+    }
+
+    @Provides
+    List<Station> provideNotes() {
+        return new ArrayList<>();
     }
 
     @Provides
