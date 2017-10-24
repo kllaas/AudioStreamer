@@ -51,7 +51,7 @@ public class DetailsPresenter<V extends DetailsContract.View>
     }
 
     private void setUpMediaPlayer(Station station) {
-        int streamsAmount = station.getStreams().size() - 1;
+        if (station.getStreams().size() == 0) return;
 
         try {
             mediaPlayer.setOnPreparedListener(mp -> {
@@ -60,7 +60,11 @@ public class DetailsPresenter<V extends DetailsContract.View>
             });
 
             mediaPlayer.reset();
-            mediaPlayer.setDataSource(station.getStreams().get(streamsAmount).getUrl());
+
+            int streamsAmount = station.getStreams().size() - 1;
+            String streamUrl = station.getStreams().get(streamsAmount).getUrl();
+            mediaPlayer.setDataSource(streamUrl);
+
             mediaPlayer.prepareAsync();
         } catch (IOException e) {
             System.out.println(e.getMessage());
