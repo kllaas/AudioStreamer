@@ -1,6 +1,6 @@
 package com.example.alexey.audiostreamer.ui.details;
 
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.ui.base.BasePresenter;
 import com.example.alexey.audiostreamer.ui.base.BaseView;
 

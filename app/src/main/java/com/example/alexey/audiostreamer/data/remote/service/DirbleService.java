@@ -1,6 +1,6 @@
 package com.example.alexey.audiostreamer.data.remote.service;
 
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.remote.RemoteStation;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ import retrofit2.http.GET;
 public interface DirbleService {
 
     @GET("stations/popular")
-    Observable<List<Station>> getPopularStations();
+    Observable<List<RemoteStation>> getPopularStations();
 
 }

@@ -1,6 +1,6 @@
 package com.example.alexey.audiostreamer.data.remote.mapping;
 
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.remote.RemoteStation;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -14,12 +14,12 @@ import java.lang.reflect.Type;
  * Created by alexey
  */
 
-public class StationsDeserializer implements JsonDeserializer<Station> {
+public class StationsDeserializer implements JsonDeserializer<RemoteStation> {
 
     @Override
-    public Station deserialize(JsonElement json, Type typeOfT,
+    public RemoteStation deserialize(JsonElement json, Type typeOfT,
                                      JsonDeserializationContext context) throws JsonParseException {
-        Type listType = new TypeToken<Station>() {}.getType();
+        Type listType = new TypeToken<RemoteStation>() {}.getType();
 
         return new Gson().fromJson(json, listType);
     }

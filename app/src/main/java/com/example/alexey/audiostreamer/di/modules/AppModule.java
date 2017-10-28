@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.example.alexey.audiostreamer.BuildConfig;
 import com.example.alexey.audiostreamer.data.Repository;
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.remote.RemoteStation;
 import com.example.alexey.audiostreamer.data.local.LocalRepository;
 import com.example.alexey.audiostreamer.data.remote.RemoteRepository;
 import com.example.alexey.audiostreamer.data.remote.mapping.StationsDeserializer;
@@ -72,7 +72,7 @@ public class AppModule {
     @Singleton
     Gson provideGson() {
         return new GsonBuilder()
-                .registerTypeAdapter(Station.class, new StationsDeserializer())
+                .registerTypeAdapter(RemoteStation.class, new StationsDeserializer())
                 .create();
     }
 

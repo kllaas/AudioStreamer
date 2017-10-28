@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.alexey.audiostreamer.R;
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.utils.custom_view.SquareImageView;
 
 import java.util.List;
@@ -80,12 +80,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         void onBind(Station station) {
             name.setText(station.getName());
-            categories.setText(station.getCategoriesString());
-            listeners.setText(itemView.getContext().getString(R.string.n_list, station.getListeners()));
+            categories.setText(station.getCategories());
+            listeners.setText(itemView.getContext().getString(R.string.n_list, station.getStreamListeners()));
 
-            if (station.getImage() != null && station.getImage().getUrlToImage() != null)
+            if (station.getUrlToImage() != null)
                 Glide.with(itemView.getContext())
-                        .load(station.getImage().getUrlToImage())
+                        .load(station.getUrlToImage())
                         .asBitmap()
                         .fitCenter()
                         .into(image);

@@ -1,7 +1,7 @@
 package com.example.alexey.audiostreamer.data.remote;
 
 import com.example.alexey.audiostreamer.BuildConfig;
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.remote.RemoteStation;
 import com.example.alexey.audiostreamer.data.remote.service.DirbleService;
 import com.example.alexey.audiostreamer.data.remote.service.ServiceGenerator;
 
@@ -25,7 +25,7 @@ public class RemoteRepository implements RemoteSource {
     }
 
     @Override
-    public Observable<List<Station>> fetchStations() {
+    public Observable<List<RemoteStation>> fetchStations() {
         return dirbleService.getPopularStations();
     }
 }

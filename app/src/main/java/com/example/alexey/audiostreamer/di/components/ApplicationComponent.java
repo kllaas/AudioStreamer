@@ -1,8 +1,5 @@
 package com.example.alexey.audiostreamer.di.components;
 
-import android.app.Application;
-import android.content.Context;
-
 import com.example.alexey.audiostreamer.App;
 import com.example.alexey.audiostreamer.data.Repository;
 import com.example.alexey.audiostreamer.di.modules.ActivityModule;
@@ -23,10 +20,6 @@ public interface ApplicationComponent {
     void inject(App app);
 
     void inject(MainActivity activity);
-
-    Context getAppContext();
-
-    Application application();
 
     Repository getDataSource();
 

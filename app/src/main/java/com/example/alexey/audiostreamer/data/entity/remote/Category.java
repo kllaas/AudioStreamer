@@ -1,10 +1,6 @@
-package com.example.alexey.audiostreamer.data.entity;
+package com.example.alexey.audiostreamer.data.entity.remote;
 
-import java.io.Serializable;
-
-import io.realm.RealmObject;
-
-public class Category extends RealmObject implements Serializable {
+public class Category {
 
     private int id;
 

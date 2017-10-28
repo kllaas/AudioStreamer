@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.alexey.audiostreamer.R;
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.ui.details.DetailsFragment;
 import com.example.alexey.audiostreamer.ui.list.ListFragment;
 

@@ -3,7 +3,7 @@ package com.example.alexey.audiostreamer.ui.list;
 
 import com.example.alexey.audiostreamer.App;
 import com.example.alexey.audiostreamer.data.Repository;
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.ui.NavigationManager;
 import com.example.alexey.audiostreamer.ui.base.BasePresenterImpl;
 import com.example.alexey.audiostreamer.utils.rx.SchedulerProvider;

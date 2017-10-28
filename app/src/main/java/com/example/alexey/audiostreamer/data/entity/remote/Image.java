@@ -1,8 +1,6 @@
-package com.example.alexey.audiostreamer.data.entity;
+package com.example.alexey.audiostreamer.data.entity.remote;
 
-import io.realm.RealmObject;
-
-public class Image extends RealmObject {
+public class Image {
 
     private String url;
 

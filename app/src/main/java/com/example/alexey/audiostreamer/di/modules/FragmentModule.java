@@ -2,7 +2,7 @@ package com.example.alexey.audiostreamer.di.modules;
 
 import android.media.MediaPlayer;
 
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.ui.details.DetailsContract;
 import com.example.alexey.audiostreamer.ui.details.DetailsPresenter;
 import com.example.alexey.audiostreamer.ui.list.ListContract;

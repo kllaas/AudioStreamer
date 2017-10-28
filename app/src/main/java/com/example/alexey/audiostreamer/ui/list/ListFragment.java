@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.alexey.audiostreamer.R;
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.di.components.FragmentComponent;
 import com.example.alexey.audiostreamer.ui.base.BaseFragment;
 

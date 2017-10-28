@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.alexey.audiostreamer.R;
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.di.components.FragmentComponent;
 import com.example.alexey.audiostreamer.ui.base.BaseFragment;
 import com.ohoussein.playpause.PlayPauseView;
@@ -55,7 +55,7 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
     public static DetailsFragment newInstance(Station station) {
         Bundle args = new Bundle();
 
-        args.putSerializable(STATION_BUNDLE_KEY, station);
+        args.putParcelable(STATION_BUNDLE_KEY, station);
 
         DetailsFragment fragment = new DetailsFragment();
         fragment.setArguments(args);
@@ -72,7 +72,7 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
 
         setUnBinder(ButterKnife.bind(this, view));
 
-        Station station = (Station) getArguments().getSerializable(STATION_BUNDLE_KEY);
+        Station station = getArguments().getParcelable(STATION_BUNDLE_KEY);
         presenter.setStation(station);
 
         setUpViews();

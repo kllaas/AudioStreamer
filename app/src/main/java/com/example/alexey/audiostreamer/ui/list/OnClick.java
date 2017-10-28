@@ -1,7 +1,7 @@
 package com.example.alexey.audiostreamer.ui.list;
 
 
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 
 public interface OnClick {
 

@@ -4,7 +4,7 @@ package com.example.alexey.audiostreamer.ui.details;
 import android.media.MediaPlayer;
 
 import com.example.alexey.audiostreamer.data.Repository;
-import com.example.alexey.audiostreamer.data.entity.Station;
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.ui.NavigationManager;
 import com.example.alexey.audiostreamer.ui.base.BasePresenterImpl;
 import com.example.alexey.audiostreamer.utils.rx.SchedulerProvider;
@@ -42,8 +42,8 @@ public class DetailsPresenter<V extends DetailsContract.View>
 
         setUpMediaPlayer(station);
 
-        if (station.getImage() != null && station.getImage().getUrlToImage() != null) {
-            getView().setImage(station.getImage().getUrlToImage());
+        if (station.getUrlToImage() != null) {
+            getView().setImage(station.getUrlToImage());
         }
 
         if (station.getName() != null)
@@ -51,7 +51,7 @@ public class DetailsPresenter<V extends DetailsContract.View>
     }
 
     private void setUpMediaPlayer(Station station) {
-        if (station.getStreams().size() == 0) return;
+        if (station.getUrlToStream() == null) return;
 
         try {
             mediaPlayer.setOnPreparedListener(mp -> {
@@ -60,12 +60,10 @@ public class DetailsPresenter<V extends DetailsContract.View>
             });
 
             mediaPlayer.reset();
-
-            int streamsAmount = station.getStreams().size() - 1;
-            String streamUrl = station.getStreams().get(streamsAmount).getUrl();
-            mediaPlayer.setDataSource(streamUrl);
+            mediaPlayer.setDataSource(station.getUrlToStream());
 
             mediaPlayer.prepareAsync();
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
