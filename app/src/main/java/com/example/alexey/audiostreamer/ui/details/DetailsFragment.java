@@ -105,16 +105,14 @@ public class DetailsFragment extends BaseFragment implements DetailsMVPContract.
         presenter.takeView(this);
 
         togglePlayButton(false);
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_black_24dp);
+        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
     }
 
     @Override
     public void togglePlayButton(boolean enabled) {
         playButton.setEnabled(enabled);
-
-        int enabledColor = getContext().getResources().getColor(android.R.color.transparent);
-        int disabledColor = getContext().getResources().getColor(R.color.disableButtonColor);
-
-        playButton.setColor(enabled ? enabledColor : disabledColor);
     }
 
     @OnClick(R.id.thumb)
