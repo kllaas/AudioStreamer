@@ -3,9 +3,9 @@ package com.example.alexey.audiostreamer.di.modules;
 import android.media.MediaPlayer;
 
 import com.example.alexey.audiostreamer.data.entity.local.Station;
-import com.example.alexey.audiostreamer.ui.details.DetailsContract;
+import com.example.alexey.audiostreamer.ui.details.DetailsMVPContract;
 import com.example.alexey.audiostreamer.ui.details.DetailsPresenter;
-import com.example.alexey.audiostreamer.ui.list.ListContract;
+import com.example.alexey.audiostreamer.ui.list.ListMVPContract;
 import com.example.alexey.audiostreamer.ui.list.ListPresenter;
 
 import java.util.ArrayList;
@@ -24,8 +24,8 @@ public class FragmentModule {
     }
 
     @Provides
-    ListContract.Presenter<ListContract.View> provideListPresenter(
-            ListPresenter<ListContract.View> presenter) {
+    ListMVPContract.Presenter<ListMVPContract.View> provideListPresenter(
+            ListPresenter<ListMVPContract.View> presenter) {
         return presenter;
     }
 
@@ -35,8 +35,8 @@ public class FragmentModule {
     }
 
     @Provides
-    DetailsContract.Presenter<DetailsContract.View> provideDetailsPresenter(
-            DetailsPresenter<DetailsContract.View> presenter) {
+    DetailsMVPContract.Presenter<DetailsMVPContract.View> provideDetailsPresenter(
+            DetailsPresenter<DetailsMVPContract.View> presenter) {
         return presenter;
     }
 

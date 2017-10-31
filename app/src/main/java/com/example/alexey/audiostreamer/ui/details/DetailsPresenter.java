@@ -19,8 +19,8 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by alexey
  */
 
-public class DetailsPresenter<V extends DetailsContract.View>
-        extends BasePresenterImpl<V> implements DetailsContract.Presenter<V> {
+public class DetailsPresenter<V extends DetailsMVPContract.View>
+        extends BasePresenterImpl<V> implements DetailsMVPContract.Presenter<V> {
 
     @Inject
     MediaPlayer mediaPlayer;

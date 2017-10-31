@@ -1,44 +1,50 @@
 package com.example.alexey.audiostreamer.ui.details;
 
-import android.content.res.ColorStateList;
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.alexey.audiostreamer.R;
 import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.di.components.FragmentComponent;
 import com.example.alexey.audiostreamer.ui.base.BaseFragment;
+import com.example.alexey.audiostreamer.utils.ImageUtils;
 import com.ohoussein.playpause.PlayPauseView;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.graphics.PorterDuff.Mode.MULTIPLY;
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
  * Created by alexey
  */
 
-public class DetailsFragment extends BaseFragment implements DetailsContract.View {
+public class DetailsFragment extends BaseFragment implements DetailsMVPContract.View {
 
     private static final String STATION_BUNDLE_KEY = "station";
 
-    @BindView(R.id.image)
-    ImageView image;
+    @BindView(R.id.thumb)
+    ImageView thumb;
+
+    @BindView(R.id.details_container)
+    View rootView;
 
     @BindView(R.id.name)
     TextView name;
@@ -47,10 +53,13 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
     PlayPauseView playButton;
 
     @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
+    ProgressWheel progressBar;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Inject
-    DetailsContract.Presenter<DetailsContract.View> presenter;
+    DetailsMVPContract.Presenter<DetailsMVPContract.View> presenter;
 
     public static DetailsFragment newInstance(Station station) {
         Bundle args = new Bundle();
@@ -75,8 +84,6 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
         Station station = getArguments().getParcelable(STATION_BUNDLE_KEY);
         presenter.setStation(station);
 
-        setUpViews();
-
         return view;
     }
 
@@ -87,32 +94,24 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
         presenter.destroyMediaPlayer();
     }
 
-    private void setUpViews() {
+    @Override
+    protected void setUpViews() {
         presenter.takeView(this);
 
         togglePlayButton(false);
-
-        int color = getContext().getResources().getColor(R.color.colorPrimary);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ColorStateList stateList = ColorStateList.valueOf(color);
-            progressBar.setIndeterminateTintList(stateList);
-        } else {
-            progressBar.getIndeterminateDrawable()
-                    .setColorFilter(color, MULTIPLY);
-        }
     }
 
     @Override
     public void togglePlayButton(boolean enabled) {
         playButton.setEnabled(enabled);
 
-        int enabledColor = getContext().getResources().getColor(R.color.colorPrimary);
+        int enabledColor = getContext().getResources().getColor(android.R.color.transparent);
         int disabledColor = getContext().getResources().getColor(R.color.disableButtonColor);
 
         playButton.setColor(enabled ? enabledColor : disabledColor);
     }
 
-    @OnClick(R.id.play_btn)
+    @OnClick(R.id.thumb)
     public void onClick() {
         presenter.togglePlaying();
 
@@ -122,6 +121,8 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
     @Override
     public void setName(String text) {
         name.setText(text);
+
+        toolbar.setTitle(text);
     }
 
     @Override
@@ -130,22 +131,33 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Vie
                 .load(imageUrl)
                 .asBitmap()
                 .fitCenter()
-                .into(image);
+                .into(new SimpleTarget<Bitmap>(100, 100) {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                        setThumbColor(resource);
+
+                        setBlurredImage(resource);
+                    }
+                });
+    }
+
+    private void setThumbColor(Bitmap resource) {
+        thumb.setImageBitmap(resource);
+        thumb.setColorFilter(getContext().getResources().getColor(R.color.colorGray),
+                PorterDuff.Mode.DARKEN);
+    }
+
+    private void setBlurredImage(Bitmap resource) {
+        Observable.fromCallable(() ->
+                ImageUtils.createBlurredImageFromBitmap(resource, getContext(), 2))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(drawable -> rootView.setBackground(drawable));
     }
 
     @Override
     public void toggleProgressBar(boolean visibility) {
-        progressBar.setVisibility(visibility ? VISIBLE : GONE);
-    }
-
-    @Override
-    protected String getToolbarTitle() {
-        return "Details";
-    }
-
-    @Override
-    protected boolean showsBackButton() {
-        return true;
+        progressBar.setProgress(visibility ? 0 : 100);
     }
 
 }

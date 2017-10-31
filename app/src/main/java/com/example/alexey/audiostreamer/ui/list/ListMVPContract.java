@@ -6,7 +6,7 @@ import com.example.alexey.audiostreamer.ui.base.BaseView;
 
 import java.util.List;
 
-public interface ListContract {
+public interface ListMVPContract {
 
     interface View extends BaseView {
 

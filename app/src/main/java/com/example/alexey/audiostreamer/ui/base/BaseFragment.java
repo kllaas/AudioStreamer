@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
+import android.view.View;
 
 import com.example.alexey.audiostreamer.App;
 import com.example.alexey.audiostreamer.di.components.DaggerFragmentComponent;
@@ -35,7 +35,6 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     @Override
     public void onResume() {
         super.onResume();
-        initActionBar(showsBackButton(), getToolbarTitle());
     }
 
     @Override
@@ -48,21 +47,14 @@ public abstract class BaseFragment extends Fragment implements BaseView {
                 .build();
     }
 
-    protected void initActionBar(boolean showBackButton, String title) {
-        if (getActivity() == null) return;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        ActionBar actionBar = ((BaseActivity) getActivity()).getSupportActionBar();
-
-        if (actionBar != null) {
-            actionBar.setTitle(title);
-            actionBar.setDisplayHomeAsUpEnabled(showBackButton);
-            actionBar.setDisplayShowHomeEnabled(showBackButton);
-        }
+        setUpViews();
     }
 
-    protected abstract String getToolbarTitle();
-
-    protected abstract boolean showsBackButton();
+    protected abstract void setUpViews();
 
     protected FragmentComponent getComponent() {
         return component;

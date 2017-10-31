@@ -11,6 +11,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         debug {
@@ -50,6 +53,12 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // Material progress bar with ability to customization
+    compile 'com.pnikosis:materialish-progress:1.7'
+
+    // CircleImageView
+    compile 'de.hdodenhof:circleimageview:2.2.0'
 
     // Butterknife
     compile "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"

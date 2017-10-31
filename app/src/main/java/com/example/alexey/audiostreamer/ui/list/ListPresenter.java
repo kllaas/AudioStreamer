@@ -18,8 +18,8 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by alexey
  */
 
-public class ListPresenter<V extends ListContract.View>
-        extends BasePresenterImpl<V> implements ListContract.Presenter<V> {
+public class ListPresenter<V extends ListMVPContract.View>
+        extends BasePresenterImpl<V> implements ListMVPContract.Presenter<V> {
 
     @Inject
     ListPresenter(Repository dataSource, SchedulerProvider schedulerProvider,

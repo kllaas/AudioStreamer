@@ -2,7 +2,6 @@ package com.example.alexey.audiostreamer.ui.main;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.alexey.audiostreamer.App;
@@ -13,16 +12,12 @@ import com.example.alexey.audiostreamer.ui.main.MainMvpContract.View;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements View {
 
     @Inject
     Presenter<View> presenter;
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +28,6 @@ public class MainActivity extends BaseActivity implements View {
         App.appComponent.inject(this);
 
         presenter.takeView(this);
-
-        setSupportActionBar(toolbar);
     }
 
     @Override

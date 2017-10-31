@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * Created by alexey
  */
 
-public class ListFragment extends BaseFragment implements ListContract.View {
+public class ListFragment extends BaseFragment implements ListMVPContract.View {
 
     OnClick onClick = new OnClick() {
         @Override
@@ -42,7 +42,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
     ProgressBar progressBar;
 
     @Inject
-    ListContract.Presenter<ListContract.View> presenter;
+    ListMVPContract.Presenter<ListMVPContract.View> presenter;
 
     @Inject
     ListAdapter listAdapter;
@@ -60,7 +60,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.track_list, container, false);
+        View view = inflater.inflate(R.layout.stations_list, container, false);
 
         FragmentComponent component = getComponent();
         component.inject(this);
@@ -73,6 +73,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
         return view;
     }
 
+    @Override
     protected void setUpViews() {
         layoutManager = new LinearLayoutManager(getContext());
 
@@ -80,16 +81,6 @@ public class ListFragment extends BaseFragment implements ListContract.View {
         recyclerView.setAdapter(listAdapter);
 
         listAdapter.setOnItemClick(onClick);
-    }
-
-    @Override
-    protected String getToolbarTitle() {
-        return getString(R.string.app_name);
-    }
-
-    @Override
-    protected boolean showsBackButton() {
-        return false;
     }
 
     @Override
