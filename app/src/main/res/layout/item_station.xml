@@ -2,10 +2,9 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="1dp"
-    android:layout_marginTop="1dp"
     android:elevation="4dp"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="0dp"
@@ -13,49 +12,51 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_station_height"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
 
         <com.example.alexey.audiostreamer.utils.custom_view.SquareImageView
             android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:scaleType="centerCrop"
+            android:layout_width="@dimen/preview_image_size"
+            android:layout_height="@dimen/preview_image_size"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="16dp"
-            android:layout_toEndOf="@+id/image"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@+id/image"
             android:ellipsize="end"
-            android:textSize="24sp"
+            android:maxLines="1"
             android:textColor="@color/colorBlack"
-            android:maxLines="2" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/categories"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:layout_below="@id/name"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
-            android:maxLines="3"
+            android:layout_toStartOf="@+id/image"
             android:ellipsize="end"
-            android:layout_toEndOf="@+id/image"/>
+            android:maxLines="1"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/listeners"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_alignParentBottom="true"
-            android:maxLines="1"
+            android:layout_below="@id/categories"
+            android:layout_toStartOf="@+id/image"
             android:ellipsize="end"
-            android:layout_toEndOf="@+id/image"/>
+            android:maxLines="1"
+            android:textSize="14sp" />
 
     </RelativeLayout>
 

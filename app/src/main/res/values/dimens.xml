@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_station_height">156dp</dimen>
+    <dimen name="item_station_height">124dp</dimen>
     <dimen name="details_image_station">256dp</dimen>
+    <dimen name="preview_image_size">96dp</dimen>
 </resources>

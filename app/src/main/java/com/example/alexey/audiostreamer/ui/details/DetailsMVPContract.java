@@ -14,6 +14,10 @@ public interface DetailsMVPContract {
 
         void setImage(String imageUrl);
 
+        void setCategories(String text);
+
+        void setListeners(int count);
+
         void toggleProgressBar(boolean visibility);
     }
 

@@ -48,6 +48,13 @@ public class DetailsPresenter<V extends DetailsMVPContract.View>
 
         if (station.getName() != null)
             getView().setName(station.getName());
+
+        if (station.getStreamListeners() != null)
+            getView().setListeners(station.getStreamListeners());
+
+        if (station.getCategories() != null) {
+            getView().setCategories(station.getCategories());
+        }
     }
 
     private void setUpMediaPlayer(Station station) {

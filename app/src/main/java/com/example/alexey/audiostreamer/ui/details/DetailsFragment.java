@@ -49,6 +49,12 @@ public class DetailsFragment extends BaseFragment implements DetailsMVPContract.
     @BindView(R.id.name)
     TextView name;
 
+    @BindView(R.id.categories)
+    TextView categories;
+
+    @BindView(R.id.listeners)
+    TextView listeners;
+
     @BindView(R.id.play_btn)
     PlayPauseView playButton;
 
@@ -139,6 +145,16 @@ public class DetailsFragment extends BaseFragment implements DetailsMVPContract.
                         setBlurredImage(resource);
                     }
                 });
+    }
+
+    @Override
+    public void setCategories(String text) {
+        categories.setText(String.format(getString(R.string.categories_description), text));
+    }
+
+    @Override
+    public void setListeners(int count) {
+        listeners.setText(String.format(getString(R.string.listeners_n), count));
     }
 
     private void setThumbColor(Bitmap resource) {
