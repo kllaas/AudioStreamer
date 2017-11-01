@@ -1,5 +1,6 @@
 package com.example.alexey.audiostreamer.ui.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
@@ -49,4 +50,8 @@ public class MainActivity extends BaseActivity implements View {
         return getSupportFragmentManager();
     }
 
+    @Override
+    public Context getActivityContext() {
+        return getActivityContext();
+    }
 }

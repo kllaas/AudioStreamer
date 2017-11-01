@@ -3,4 +3,5 @@
     <string name="n_list">list %d</string>
     <string name="listeners_n">Listeners: %d</string>
     <string name="categories_description">Categories: %s</string>
+    <string name="failed_to_play_stream">Failed while loading stream</string>
 </resources>

@@ -8,8 +8,6 @@ public interface DetailsMVPContract {
 
     interface View extends BaseView {
 
-        void togglePlayButton(boolean enabled);
-
         void setName(String text);
 
         void setImage(String imageUrl);
@@ -18,7 +16,9 @@ public interface DetailsMVPContract {
 
         void setListeners(int count);
 
-        void toggleProgressBar(boolean visibility);
+        void setProgress(boolean visibility);
+
+        void setProgressBarVisibility(boolean visibility);
     }
 
     interface Presenter<V extends View> extends BasePresenter<V> {
@@ -27,7 +27,7 @@ public interface DetailsMVPContract {
 
         void togglePlaying();
 
-        void destroyMediaPlayer();
+        void onDestroy();
     }
 
 }

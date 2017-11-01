@@ -6,7 +6,8 @@
     android:id="@+id/details_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -32,6 +33,7 @@
             android:layout_margin="8dp"
             app:matProg_barWidth="2dp"
             app:matProg_circleRadius="500dp"
+            android:visibility="gone"
             wheel:matProg_barColor="@color/colorPrimary"
             wheel:matProg_progressIndeterminate="true" />
 

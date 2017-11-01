@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,30 +97,22 @@ public class DetailsFragment extends BaseFragment implements DetailsMVPContract.
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        presenter.destroyMediaPlayer();
+        presenter.onDestroy();
     }
 
     @Override
     protected void setUpViews() {
         presenter.takeView(this);
 
-        togglePlayButton(false);
-
         toolbar.setNavigationIcon(R.drawable.ic_arrow_black_24dp);
         toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
-    }
-
-    @Override
-    public void togglePlayButton(boolean enabled) {
-        playButton.setEnabled(enabled);
     }
 
     @OnClick(R.id.thumb)
     public void onClick() {
         presenter.togglePlaying();
 
-        playButton.change(!playButton.isPlay());
+        playButton.toggle();
     }
 
     @Override
@@ -170,8 +163,18 @@ public class DetailsFragment extends BaseFragment implements DetailsMVPContract.
     }
 
     @Override
-    public void toggleProgressBar(boolean visibility) {
-        progressBar.setProgress(visibility ? 0 : 100);
+    public void setProgress(boolean finished) {
+        if (finished) {
+            progressBar.setProgress(1);
+        } else {
+            progressBar.spin();
+        }
+    }
+
+    @Override
+    public void setProgressBarVisibility(boolean visibility) {
+        Log.d("progressBar", visibility + "");
+        progressBar.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
 }

@@ -1,15 +1,20 @@
 package com.example.alexey.audiostreamer.ui.details;
 
 
-import android.media.MediaPlayer;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.example.alexey.audiostreamer.PlayerService;
+import com.example.alexey.audiostreamer.R;
 import com.example.alexey.audiostreamer.data.Repository;
 import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.ui.NavigationManager;
 import com.example.alexey.audiostreamer.ui.base.BasePresenterImpl;
 import com.example.alexey.audiostreamer.utils.rx.SchedulerProvider;
-
-import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -22,25 +27,39 @@ import io.reactivex.disposables.CompositeDisposable;
 public class DetailsPresenter<V extends DetailsMVPContract.View>
         extends BasePresenterImpl<V> implements DetailsMVPContract.Presenter<V> {
 
-    @Inject
-    MediaPlayer mediaPlayer;
-
     private Station station;
+
+    private boolean playing;
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getExtras() == null) return;
+
+            boolean isPrepared = intent.getExtras().getBoolean(PlayerService.EXTRA_PLAYER_PREPARED);
+            Log.d("BroadcastReceiver", "onReceive: " + isPrepared);
+
+            if (isPrepared) {
+                getView().setProgress(true);
+            } else {
+                Toast.makeText(getView().getActivityContext(),
+                        getView().getActivityContext().getResources()
+                        .getString(R.string.failed_to_play_stream), Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    };
 
     @Inject
     DetailsPresenter(Repository dataSource, SchedulerProvider schedulerProvider,
-                     CompositeDisposable compositeDisposable, NavigationManager navigationManager,
-                     MediaPlayer mediaPlayer) {
+                     CompositeDisposable compositeDisposable, NavigationManager navigationManager) {
         super(dataSource, schedulerProvider, compositeDisposable, navigationManager);
-
-        this.mediaPlayer = mediaPlayer;
     }
 
     @Override
     protected void onViewPrepared() {
         if (station == null) return;
-
-        setUpMediaPlayer(station);
 
         if (station.getUrlToImage() != null) {
             getView().setImage(station.getUrlToImage());
@@ -55,25 +74,9 @@ public class DetailsPresenter<V extends DetailsMVPContract.View>
         if (station.getCategories() != null) {
             getView().setCategories(station.getCategories());
         }
-    }
 
-    private void setUpMediaPlayer(Station station) {
-        if (station.getUrlToStream() == null) return;
-
-        try {
-            mediaPlayer.setOnPreparedListener(mp -> {
-                getView().togglePlayButton(true);
-                getView().toggleProgressBar(false);
-            });
-
-            mediaPlayer.reset();
-            mediaPlayer.setDataSource(station.getUrlToStream());
-
-            mediaPlayer.prepareAsync();
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        IntentFilter intentFilter = new IntentFilter(PlayerService.PLAYER_READY);
+        getView().getActivityContext().registerReceiver(receiver, intentFilter);
     }
 
     @Override
@@ -83,19 +86,19 @@ public class DetailsPresenter<V extends DetailsMVPContract.View>
 
     @Override
     public void togglePlaying() {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
+        if (playing) {
+            PlayerService.startActionStop(getView().getActivityContext());
         } else {
-            mediaPlayer.start();
+            PlayerService.startActionPlay(getView().getActivityContext(), station.getUrlToStream());
         }
+
+        getView().setProgress(playing);
+        playing = !playing;
+        getView().setProgressBarVisibility(playing);
     }
 
     @Override
-    public void destroyMediaPlayer() {
-        if (mediaPlayer == null) return;
-
-        mediaPlayer.stop();
-        mediaPlayer.release();
-        mediaPlayer = null;
+    public void onDestroy() {
+        getView().getActivityContext().unregisterReceiver(receiver);
     }
 }
