@@ -1,4 +1,4 @@
-package com.example.alexey.audiostreamer.data.remote.mapping;
+package com.example.alexey.audiostreamer.data.mapping;
 
 import com.example.alexey.audiostreamer.data.entity.remote.RemoteStation;
 import com.google.gson.Gson;

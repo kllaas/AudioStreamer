@@ -3,9 +3,13 @@ package com.example.alexey.audiostreamer.data.entity.local;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Station implements Parcelable {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-    private Integer id;
+public class Station extends RealmObject implements Parcelable {
+
+    @PrimaryKey
+    private Long id;
 
     private String name;
 
@@ -17,11 +21,11 @@ public class Station implements Parcelable {
 
     private Integer streamListeners;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -84,7 +88,7 @@ public class Station implements Parcelable {
     }
 
     protected Station(Parcel in) {
-        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.id = (Long) in.readValue(Long.class.getClassLoader());
         this.name = in.readString();
         this.urlToImage = in.readString();
         this.categories = in.readString();

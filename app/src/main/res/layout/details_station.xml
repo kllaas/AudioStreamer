@@ -9,19 +9,10 @@
     android:clickable="true"
     android:focusable="true">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/colorWhite"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp" />
-
     <FrameLayout
         android:id="@+id/play_container"
         android:layout_width="@dimen/details_image_station"
         android:layout_height="@dimen/details_image_station"
-        android:layout_below="@id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp">
 

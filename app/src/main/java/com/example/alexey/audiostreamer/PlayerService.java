@@ -18,8 +18,6 @@ public class PlayerService extends Service
         MediaPlayer.OnPreparedListener,
         MediaPlayer.OnErrorListener {
 
-    private static final String LOG_TAG = PlayerService.class.getSimpleName();
-
     private static final String ACTION_PLAY = "com.example.alexey.audiostreamer.action.PLAY";
     private static final String ACTION_STOP = "com.example.alexey.audiostreamer.action.STOP";
     public static final String PLAYER_READY = "com.example.alexey.audiostreamer.action.PLAYER_READY";
@@ -29,7 +27,6 @@ public class PlayerService extends Service
     public static final String EXTRA_PLAYER_PREPARED = "PLAYER_PREPARED";
 
     private MediaPlayer mediaPlayer;
-
     private AudioManager audioManager;
 
     private String streamUrl;

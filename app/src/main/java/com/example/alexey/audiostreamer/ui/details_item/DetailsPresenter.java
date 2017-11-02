@@ -1,4 +1,4 @@
-package com.example.alexey.audiostreamer.ui.details;
+package com.example.alexey.audiostreamer.ui.details_item;
 
 
 import android.content.BroadcastReceiver;
@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.alexey.audiostreamer.App;
 import com.example.alexey.audiostreamer.PlayerService;
 import com.example.alexey.audiostreamer.R;
 import com.example.alexey.audiostreamer.data.Repository;
@@ -29,6 +30,8 @@ public class DetailsPresenter<V extends DetailsMVPContract.View>
 
     private Station station;
 
+    private Long stationId;
+
     private boolean playing;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -43,8 +46,8 @@ public class DetailsPresenter<V extends DetailsMVPContract.View>
             if (isPrepared) {
                 getView().setProgress(true);
             } else {
-                Toast.makeText(getView().getActivityContext(),
-                        getView().getActivityContext().getResources()
+                Toast.makeText(getView().getContext(),
+                        App.appComponent.getContext().getResources()
                         .getString(R.string.failed_to_play_stream), Toast.LENGTH_SHORT)
                         .show();
             }
@@ -59,7 +62,7 @@ public class DetailsPresenter<V extends DetailsMVPContract.View>
 
     @Override
     protected void onViewPrepared() {
-        if (station == null) return;
+        this.station = getRepository().getStationById(stationId);
 
         if (station.getUrlToImage() != null) {
             getView().setImage(station.getUrlToImage());
@@ -76,20 +79,20 @@ public class DetailsPresenter<V extends DetailsMVPContract.View>
         }
 
         IntentFilter intentFilter = new IntentFilter(PlayerService.PLAYER_READY);
-        getView().getActivityContext().registerReceiver(receiver, intentFilter);
+        getView().getContext().registerReceiver(receiver, intentFilter);
     }
 
     @Override
-    public void setStation(Station station) {
-        this.station = station;
+    public void setStationId(Long id) {
+        this.stationId = id;
     }
 
     @Override
     public void togglePlaying() {
         if (playing) {
-            PlayerService.startActionStop(getView().getActivityContext());
+            PlayerService.startActionStop(getView().getContext());
         } else {
-            PlayerService.startActionPlay(getView().getActivityContext(), station.getUrlToStream());
+            PlayerService.startActionPlay(getView().getContext(), station.getUrlToStream());
         }
 
         getView().setProgress(playing);
@@ -99,6 +102,6 @@ public class DetailsPresenter<V extends DetailsMVPContract.View>
 
     @Override
     public void onDestroy() {
-        getView().getActivityContext().unregisterReceiver(receiver);
+        getView().getContext().unregisterReceiver(receiver);
     }
 }

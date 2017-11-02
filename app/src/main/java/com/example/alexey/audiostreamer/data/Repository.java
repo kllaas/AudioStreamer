@@ -1,8 +1,8 @@
 package com.example.alexey.audiostreamer.data;
 
 import com.example.alexey.audiostreamer.data.entity.local.Station;
-import com.example.alexey.audiostreamer.data.entity.mappers.RemoteToPOJO;
 import com.example.alexey.audiostreamer.data.local.LocalRepository;
+import com.example.alexey.audiostreamer.data.mapping.RemoteToPOJO;
 import com.example.alexey.audiostreamer.data.remote.RemoteRepository;
 
 import java.util.List;
@@ -21,8 +21,14 @@ public class Repository {
 
     public Observable<List<Station>> getStations() {
         return remoteRepository.fetchStations()
-                .doOnNext(stations -> localRepository.saveStations(stations))
                 .map(RemoteToPOJO::transform);
     }
 
+    public Station getStationById(Long id) {
+        return localRepository.getStationById(id);
+    }
+
+    public void saveStations(List<Station> stations) {
+        localRepository.saveStations(stations);
+    }
 }

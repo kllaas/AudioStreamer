@@ -1,4 +1,4 @@
-package com.example.alexey.audiostreamer.data.entity.mappers;
+package com.example.alexey.audiostreamer.data.mapping;
 
 import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.data.entity.remote.Category;

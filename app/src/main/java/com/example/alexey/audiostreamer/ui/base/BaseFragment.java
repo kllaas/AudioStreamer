@@ -42,7 +42,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         super.onAttach(context);
 
         component = DaggerFragmentComponent.builder()
-                .fragmentModule(new FragmentModule())
+                .fragmentModule(new FragmentModule(this))
                 .applicationComponent(App.appComponent)
                 .build();
     }

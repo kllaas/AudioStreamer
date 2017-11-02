@@ -1,6 +1,5 @@
-package com.example.alexey.audiostreamer.ui.details;
+package com.example.alexey.audiostreamer.ui.details_item;
 
-import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.ui.base.BasePresenter;
 import com.example.alexey.audiostreamer.ui.base.BaseView;
 
@@ -23,7 +22,7 @@ public interface DetailsMVPContract {
 
     interface Presenter<V extends View> extends BasePresenter<V> {
 
-        void setStation(Station station);
+        void setStationId(Long id);
 
         void togglePlaying();
 

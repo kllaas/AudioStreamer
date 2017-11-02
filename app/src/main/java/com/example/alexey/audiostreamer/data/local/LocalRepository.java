@@ -1,6 +1,7 @@
 package com.example.alexey.audiostreamer.data.local;
 
 
+import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.data.entity.remote.RemoteStation;
 
 import java.util.List;
@@ -24,6 +25,16 @@ public class LocalRepository implements LocalSource {
     }
 
     @Override
-    public void saveStations(List<RemoteStation> stations) {
+    public void saveStations(List<Station> stations) {
+        realm.executeTransaction(realm -> realm.insertOrUpdate(stations));
+    }
+
+    @Override
+    public Station getStationById(Long id) {
+        List<Station> list = realm.where(Station.class).findAll();
+
+        return realm.where(Station.class)
+                .equalTo("id", id)
+                .findFirst();
     }
 }

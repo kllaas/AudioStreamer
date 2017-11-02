@@ -6,9 +6,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.alexey.audiostreamer.R;
-import com.example.alexey.audiostreamer.data.entity.local.Station;
-import com.example.alexey.audiostreamer.ui.details.DetailsFragment;
+import com.example.alexey.audiostreamer.ui.details_pager.PagerFragment;
 import com.example.alexey.audiostreamer.ui.list.ListFragment;
+
+import java.util.ArrayList;
 
 /**
  * Created by alexey
@@ -63,8 +64,8 @@ public class NavigationManager {
         }
     }
 
-    public void openDetailsFragment(Station station) {
-        Fragment fragment = DetailsFragment.newInstance(station);
+    public void openPagerFragment(Long selectedId, ArrayList<Long> ids) {
+        Fragment fragment = PagerFragment.newInstance(selectedId, ids);
         open(fragment);
     }
 

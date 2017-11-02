@@ -1,5 +1,7 @@
 package com.example.alexey.audiostreamer.di.components;
 
+import android.content.Context;
+
 import com.example.alexey.audiostreamer.App;
 import com.example.alexey.audiostreamer.data.Repository;
 import com.example.alexey.audiostreamer.di.modules.ActivityModule;
@@ -27,4 +29,5 @@ public interface ApplicationComponent {
 
     NavigationManager getNavigationManager();
 
+    Context getContext();
 }

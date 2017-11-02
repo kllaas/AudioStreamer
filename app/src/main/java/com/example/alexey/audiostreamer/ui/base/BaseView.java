@@ -4,6 +4,6 @@ import android.content.Context;
 
 public interface BaseView<V extends BasePresenter> {
 
-    Context getActivityContext();
+    Context getContext();
 
 }

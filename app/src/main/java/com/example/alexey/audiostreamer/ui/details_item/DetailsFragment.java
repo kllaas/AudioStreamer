@@ -1,10 +1,9 @@
-package com.example.alexey.audiostreamer.ui.details;
+package com.example.alexey.audiostreamer.ui.details_item;
 
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.alexey.audiostreamer.R;
-import com.example.alexey.audiostreamer.data.entity.local.Station;
 import com.example.alexey.audiostreamer.di.components.FragmentComponent;
 import com.example.alexey.audiostreamer.ui.base.BaseFragment;
 import com.example.alexey.audiostreamer.utils.ImageUtils;
@@ -39,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DetailsFragment extends BaseFragment implements DetailsMVPContract.View {
 
-    private static final String STATION_BUNDLE_KEY = "station";
+    private static final String ID_BUNDLE_KEY = "station_id";
 
     @BindView(R.id.thumb)
     ImageView thumb;
@@ -62,16 +60,13 @@ public class DetailsFragment extends BaseFragment implements DetailsMVPContract.
     @BindView(R.id.progress_bar)
     ProgressWheel progressBar;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
     @Inject
     DetailsMVPContract.Presenter<DetailsMVPContract.View> presenter;
 
-    public static DetailsFragment newInstance(Station station) {
+    public static DetailsFragment newInstance(Long stationId) {
         Bundle args = new Bundle();
 
-        args.putParcelable(STATION_BUNDLE_KEY, station);
+        args.putSerializable(ID_BUNDLE_KEY, stationId);
 
         DetailsFragment fragment = new DetailsFragment();
         fragment.setArguments(args);
@@ -88,8 +83,8 @@ public class DetailsFragment extends BaseFragment implements DetailsMVPContract.
 
         setUnBinder(ButterKnife.bind(this, view));
 
-        Station station = getArguments().getParcelable(STATION_BUNDLE_KEY);
-        presenter.setStation(station);
+        Long stationId = (Long) getArguments().getSerializable(ID_BUNDLE_KEY);
+        presenter.setStationId(stationId);
 
         return view;
     }
@@ -97,15 +92,17 @@ public class DetailsFragment extends BaseFragment implements DetailsMVPContract.
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         presenter.onDestroy();
     }
 
     @Override
     protected void setUpViews() {
         presenter.takeView(this);
-
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_black_24dp);
-        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
     }
 
     @OnClick(R.id.thumb)
@@ -118,8 +115,6 @@ public class DetailsFragment extends BaseFragment implements DetailsMVPContract.
     @Override
     public void setName(String text) {
         name.setText(text);
-
-        toolbar.setTitle(text);
     }
 
     @Override

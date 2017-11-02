@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements View {
     }
 
     @Override
-    public Context getActivityContext() {
-        return getActivityContext();
+    public Context getContext() {
+        return getContext();
     }
 }
